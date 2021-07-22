@@ -19,7 +19,7 @@ const routes: Routes = [
     component: CreationPostComponent
   },
   {
-    path: 'edit-post',
+    path: 'edit-post/:id',
     component: EditPostComponent
   },
 ];
