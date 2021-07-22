@@ -18,6 +18,7 @@ namespace ApiBlog
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +31,17 @@ namespace ApiBlog
         {
              services.AddDbContext<BlogContext>(options =>
                                 options.UseSqlServer(Configuration.GetConnectionString("BlogDB")));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200")
+                                             .AllowAnyHeader()
+                                             .AllowAnyMethod();
+                                  });
+            });
 
             services.AddControllers();
             
@@ -46,6 +58,8 @@ namespace ApiBlog
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
