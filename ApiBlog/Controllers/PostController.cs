@@ -20,6 +20,10 @@ namespace ApiBlog.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// list of posts
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PostDTO>>> GetPosts()
         {
@@ -27,6 +31,12 @@ namespace ApiBlog.Controllers
                                  .Select(p => new PostDTO { Id = p.Id, Title = p.Title, Category = p.Category, Image = p.Image, Date = p.Date }).OrderByDescending(p => p.Date).ToListAsync();
         }
 
+
+        /// <summary>
+        /// Show a post
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> GetPost(int id)
         {
@@ -40,6 +50,12 @@ namespace ApiBlog.Controllers
             return post;
         }
 
+
+        /// <summary>
+        /// Creation a new post
+        /// </summary>
+        /// <param name="post"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Post>> PostPost(Post post)
         {
@@ -49,5 +65,50 @@ namespace ApiBlog.Controllers
             return CreatedAtAction("GetPost", new { id = post.Id }, post);
         }
 
+
+        /// <summary>
+        /// update a post
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="post"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutPost(int id, Post post)
+        {
+            if (id != post.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(post).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PostExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// search if the post exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private bool PostExists(int id)
+        {
+            return _context.Posts.Any(e => e.Id == id);
+        }
     }
 }
