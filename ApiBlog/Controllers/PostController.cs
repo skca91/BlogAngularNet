@@ -27,5 +27,18 @@ namespace ApiBlog.Controllers
                                  .Select(p => new PostDTO { Id = p.Id, Title = p.Title, Category = p.Category, Image = p.Image, Date = p.Date }).OrderByDescending(p => p.Date).ToListAsync();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Post>> GetPost(int id)
+        {
+            var post = await _context.Posts.FindAsync(id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return post;
+        }
+
     }
 }
