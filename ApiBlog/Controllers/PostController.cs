@@ -21,7 +21,7 @@ namespace ApiBlog.Controllers
         }
 
         /// <summary>
-        /// list of posts
+        /// list of posts sorted in descending order
         /// </summary>
         /// <returns></returns>
         [HttpGet]
