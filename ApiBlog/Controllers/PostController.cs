@@ -101,6 +101,27 @@ namespace ApiBlog.Controllers
             return NoContent();
         }
 
+
+        /// <summary>
+        /// Delete a post
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            var post = await _context.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         /// <summary>
         /// search if the post exists
         /// </summary>
