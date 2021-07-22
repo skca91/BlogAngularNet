@@ -40,5 +40,14 @@ namespace ApiBlog.Controllers
             return post;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Post>> PostPost(Post post)
+        {
+            _context.Posts.Add(post);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetPost", new { id = post.Id }, post);
+        }
+
     }
 }
