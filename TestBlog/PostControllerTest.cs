@@ -87,8 +87,11 @@ namespace TestBlog
             var controller = new PostController(databaseContext);
 
             var actionResult = await controller.GetPosts();
-            //var result = actionResult as List<PostDTO>;
-            //Assert.Equal(count, result.Count);
+
+            List<PostDTO> ArPost = actionResult.Value as List<PostDTO>;
+
+            Assert.NotNull(ArPost);
+            Assert.Equal(count, ArPost.Count);
 
         }
     }
