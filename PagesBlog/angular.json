@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "PagesBlog"
+    }
+  },
+  "defaultProject": "PagesBlog",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -1,0 +1,28 @@
+<div class='container mt-5'>
+    <div class='row'>
+        <div class='col-md-10 ml-2'>
+            <h3>Edit Post</h3>
+            <form (ngSubmit)="editPost(postForm)" #postForm="ngForm" >
+                <div class="mb-3">
+                  <label for="title" class="form-label">Title</label>
+                  <input type="text" class="form-control" name="title" id="title" [(ngModel)]="post.title" required>
+                  <div class="alert alert-danger mt-2" *ngIf="postForm.submitted && postForm.controls['title'].errors" role="alert">
+                    the title is required
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="content" class="form-label">Content</label>
+                  <textarea class="form-control" name="content" id="content" [(ngModel)]="post.content" required rows="10"></textarea>
+                  <div class="alert alert-danger mt-2" *ngIf="postForm.submitted && postForm.controls['content'].errors" role="alert">
+                    Content is required
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="category" class="form-label">Category</label>
+                  <input type="text" class="form-control" name="title" id="category" [(ngModel)]="post.category">
+                </div>
+                <button type="submit" class="btn btn-primary">Edit</button>
+              </form>
+        </div>
+    </div>
+</div>
