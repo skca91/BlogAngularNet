@@ -17,5 +17,6 @@ namespace ApiBlog.Models
         public string Image { get; set; }
         public string Category { get; set; }
         public DateTime Date { get; set; }
+        public bool isDeleted { get; set; }
     }
 }
