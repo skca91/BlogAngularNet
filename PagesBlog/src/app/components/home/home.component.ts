@@ -13,14 +13,16 @@ export class HomeComponent implements OnInit {
 
   constructor(private postService: PostService,
               private router: Router) { 
-
-    this.postService.getPosts().subscribe( resp => {
-      this.posts = resp;
-    });
-
+      this.load();
   }
 
   ngOnInit(): void {
+  }
+
+  load(){
+    this.postService.getPosts().subscribe( resp => {
+      this.posts = resp;
+    });
   }
 
   edit(id: number){
@@ -29,6 +31,12 @@ export class HomeComponent implements OnInit {
 
   delete(id:number){
 
+    this.postService.deletePost(id).subscribe( resp => {
+      this.load();
+    },(error) => {
+
+      console.log(error);
+    });
   }
 
 }

@@ -1,5 +1,6 @@
 ﻿using ApiBlog.Models;
 using ApiBlog.Views;
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -59,6 +60,7 @@ namespace ApiBlog.Controllers
         [HttpPost]
         public async Task<ActionResult<Post>> PostPost(Post post)
         {
+            post.Date = DateTime.Now;
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 

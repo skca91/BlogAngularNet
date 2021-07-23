@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
 import { PostService } from 'src/app/services/post.service';
 
@@ -23,6 +24,19 @@ export class EditPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  editPost(f : NgForm){
+
+    if(f.invalid){ return; }
+
+    this.postService.editPost(this.post.id, this.post).subscribe( resp => {
+      this.router.navigate(['post', this.post.id]);
+
+    }, (error) => {
+      console.log(error);
+    });
+
   }
 
 }
