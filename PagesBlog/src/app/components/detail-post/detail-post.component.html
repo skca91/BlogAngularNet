@@ -1,1 +1,17 @@
-<p>detail-post works!</p>
+<main class="container mt-5">
+    <div class="row g-5">
+      <div class="col-md-10">
+  
+        <article class="blog-post">
+          <h2 class="blog-post-title">{{  post.title }}</h2>
+          <p class="blog-post-meta">{{ post.category }} - {{ post.date | date }}</p>
+  
+          <p [innerHTML]="post.content"></p>
+    
+        </article>
+  
+      </div>
+  
+    </div>
+  
+  </main>

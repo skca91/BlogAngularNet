@@ -25,6 +25,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  seeDetail(id: number){
+    this.router.navigate(['post', id]);
+  }
+
   edit(id: number){
     this.router.navigate(['edit-post', id]);
   }

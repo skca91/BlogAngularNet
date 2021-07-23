@@ -1,6 +1,6 @@
 <div class='container mt-5'>
     <div class='row'>
-        <div class='col-md-8'>
+        <div class='col-md-10 ml-2'>
             <h3>Edit Post</h3>
             <form (ngSubmit)="editPost(postForm)" #postForm="ngForm" >
                 <div class="mb-3">
@@ -12,7 +12,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="content" class="form-label">Content</label>
-                  <input type="text" class="form-control" name="content" id="content" [(ngModel)]="post.content" required>
+                  <textarea class="form-control" name="content" id="content" [(ngModel)]="post.content" required rows="10"></textarea>
                   <div class="alert alert-danger mt-2" *ngIf="postForm.submitted && postForm.controls['content'].errors" role="alert">
                     Content is required
                   </div>
