@@ -94,5 +94,37 @@ namespace TestBlog
             Assert.Equal(count, ArPost.Count);
 
         }
+        /// <summary>
+        /// Add and soft delete test
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        public async Task Soft_Delete_A_Post()
+        {
+            var postOriginal = new Post()
+            {
+                Title = "test",
+                Content = "prueba",
+                Image = "imagen",
+                Category = "noticias",
+                Date = DateTime.Now
+            };
+
+            databaseContext.Posts.Add(postOriginal);
+            await databaseContext.SaveChangesAsync();
+
+            var controller = new PostController(databaseContext);
+
+            var actionResult = await controller.DeletePost(postOriginal.Id);
+
+            Assert.NotNull(actionResult);
+
+            var postDB = await databaseContext.Posts.FindAsync(postOriginal.Id);
+
+            Assert.NotNull(postDB);
+            Assert.True(postDB.isDeleted);
+
+
+        }
     }
 }
